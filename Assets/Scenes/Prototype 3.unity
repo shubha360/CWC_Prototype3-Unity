@@ -499,6 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingSpeed: 20
+  dashSpeed: 40
+  dashModeActivated: 0
 --- !u!65 &835818923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -630,6 +632,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5326510677029503853, guid: 2c2b2effea9da95458c99dc9d4f778ce, type: 3}
   m_PrefabInstance: {fileID: 5326510677340279609}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1436129016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436129018}
+  - component: {fileID: 1436129017}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1436129017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436129016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fb9f79a0f23c842aea175a8f711ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+--- !u!4 &1436129018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436129016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.792456, y: 19.917398, z: -19.091188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1451374309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1751467763
 Transform:
   m_ObjectHideFlags: 0
@@ -755,7 +801,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60311e0fc59a34b4ba317b55a2711c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 6146525531113498645, guid: 6e3f1178bbd181b4eb50dcd811a2896d, type: 3}
+  obstaclePrefabs:
+  - {fileID: 6146525531113498645, guid: 6e3f1178bbd181b4eb50dcd811a2896d, type: 3}
+  - {fileID: 5157225364586509844, guid: 61fd590ee14113749b5d49fc437f04a8, type: 3}
+  - {fileID: 1724820601037722549, guid: bb9e8ba53f7a39c4d8780c9f8298a4ca, type: 3}
+  - {fileID: 5730967156778251249, guid: b55e4381ed572fb40a26c0008cf167aa, type: 3}
+  - {fileID: 407629969015709081, guid: dd56e5b086cc31c47ac438342f5e8762, type: 3}
 --- !u!1001 &1937084223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -937,7 +988,7 @@ PrefabInstance:
       objectReference: {fileID: 1658598638}
     - target: {fileID: 865963125, guid: 2c2b2effea9da95458c99dc9d4f778ce, type: 3}
       propertyPath: gravityModifier
-      value: 3.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 865963125, guid: 2c2b2effea9da95458c99dc9d4f778ce, type: 3}
       propertyPath: explosionParticle
