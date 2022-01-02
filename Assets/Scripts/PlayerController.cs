@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce;
     public float gravityModifier;
+    public float walkingSpeed;
 
     private float normalAnimSpeed = 1.2f;
     private float dashAnimSpeed = 2.0f;
@@ -26,9 +27,11 @@ public class PlayerController : MonoBehaviour
     public float jumpSoundAudacity = 1.0f;
     public float crashSoundAudacity = 1.0f;
 
-    private bool isOnGround = true;
+    public bool isOnGround = true;
     public bool gameOver = false;
     private bool jumpedAgain = false;
+
+    public bool startGame = false;
 
     // Start is called before the first frame update
     void Start()
@@ -45,26 +48,41 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        if (moveLeftScript.dashModeActivated)
+    {
+        if (transform.position.x < 0)
         {
-            playerAnimator.speed = dashAnimSpeed;
-        } else
-        {
-            playerAnimator.speed = normalAnimSpeed;
+            transform.Translate(Vector3.forward * Time.deltaTime * walkingSpeed);
+            dirtParticle.Pause();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
+        else
         {
-            if (isOnGround)
-            {   
-                isOnGround = false;
-                playerAnimator.SetTrigger("Jump_trig");
-                jump();
-            } else if (!isOnGround && !jumpedAgain)
+            startGame = true;
+            playerAnimator.SetFloat("Speed_f", 1);
+            dirtParticle.Play();
+
+            if (moveLeftScript.dashModeActivated)
             {
-                jumpedAgain = true;
-                jump();
+                playerAnimator.speed = dashAnimSpeed;
+            }
+            else
+            {
+                playerAnimator.speed = normalAnimSpeed;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
+            {
+                if (isOnGround)
+                {
+                    isOnGround = false;
+                    playerAnimator.SetTrigger("Jump_trig");
+                    jump();
+                }
+                else if (!isOnGround && !jumpedAgain)
+                {
+                    jumpedAgain = true;
+                    playerAnimator.Play("Running_Jump", 3, 0f);
+                    jump();
+                }
             }
         }
     }
@@ -72,11 +90,15 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
-        {
-            playerAnimator.SetFloat("Speed_f", 1);
+        {   
+            if (startGame)
+            {
+                playerAnimator.SetFloat("Speed_f", 1);
+                dirtParticle.Play();
+            }
+            
             isOnGround = true;
             jumpedAgain = false;
-            dirtParticle.Play();
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -96,7 +118,7 @@ public class PlayerController : MonoBehaviour
     private void jump()
     {   
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        dirtParticle.Stop();
+        dirtParticle.Pause();
         playerAudio.PlayOneShot(jumpSound, jumpSoundAudacity);
     }
 }

@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnObstacle()
     {
-        if (!playerControllerScript.gameOver)
+        if (!playerControllerScript.gameOver && playerControllerScript.startGame)
         {
             GameObject nextSpawn = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
 

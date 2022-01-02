@@ -21,9 +21,9 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if (!playerControllerScript.gameOver)
+        if (!playerControllerScript.gameOver && playerControllerScript.startGame)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F) && playerControllerScript.isOnGround)
             {
                 dashModeActivated = true;
                 transform.Translate(Vector3.left * dashSpeed * Time.deltaTime);
