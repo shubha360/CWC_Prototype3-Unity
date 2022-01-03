@@ -22,7 +22,8 @@ public class MoveLeft : MonoBehaviour
     void Update()
     {   
         if (!playerControllerScript.gameOver && playerControllerScript.startGame)
-        {
+        {   
+            // Dash mode gets activate if F is hold down
             if (Input.GetKey(KeyCode.F) && playerControllerScript.isOnGround)
             {
                 dashModeActivated = true;

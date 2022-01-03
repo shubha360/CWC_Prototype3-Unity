@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     {   
         if (moveLeftScript.dashModeActivated)
         {
-            score += toIncrease * Time.deltaTime * 5;
+            score += toIncrease * Time.deltaTime * 5; // 5 times more points for dash mode
         } else
         {
             score += toIncrease * Time.deltaTime;
