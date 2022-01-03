@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10;
     public float gravityModifier = 2;
 
+    public bool doubleJumpUsed = false;
+    public float doubleJumpForce;
+
+    public bool doubleSpeed = false;
+
     private Rigidbody playerRb;
     private Animator playerAnimator;
     private AudioSource playerAudio;
@@ -35,7 +40,17 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            doubleSpeed = true;
+            playerAnimator.SetFloat("Speed_Multiplier", 2.0f);
+        } else if (doubleSpeed)
+        {
+            doubleSpeed = false;
+            playerAnimator.SetFloat("Speed_Multiplier", 1.0f);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
         {   
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -43,6 +58,14 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("Jump_trig");
             dirtParticle.Stop();
             playerAudio.PlayOneShot(jumpSound, jumpSoundAudacity);
+
+            doubleJumpUsed = false;
+        } else if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !doubleJumpUsed)
+        {
+            doubleJumpUsed = true;
+            playerRb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+            playerAudio.PlayOneShot(jumpSound, jumpSoundAudacity);
+            playerAnimator.Play("Running_Jump", 3, 0f);
         }
     }
 

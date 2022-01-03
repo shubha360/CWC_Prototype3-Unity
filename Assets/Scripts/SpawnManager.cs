@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
+    public GameObject[] obstaclePrefabs;
+    private int randomObstacle;
 
     private Vector3 spawnPos = new Vector3(22, 0, 0);
 
@@ -31,7 +32,9 @@ public class SpawnManager : MonoBehaviour
     {
         if (!playerControllerScript.gameOver)
         {
-            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+            randomObstacle = Random.Range(0, obstaclePrefabs.Length);
+
+            Instantiate(obstaclePrefabs[randomObstacle], spawnPos, obstaclePrefabs[randomObstacle].transform.rotation);
         }
     }
 }
